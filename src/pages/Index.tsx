@@ -1,9 +1,15 @@
 
 import { Monitor, Cloud, Gamepad, ArrowRight } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const [isConnected] = useState(true);
+  const navigate = useNavigate();
+
+  const handleLaunch = () => {
+    navigate('/auth');
+  };
 
   return (
     <div className="min-h-screen p-6 space-y-6">
@@ -37,7 +43,10 @@ const Index = () => {
             <div className="flex-1">
               <h3 className="text-xl font-bold mb-2">Grand Theft Auto V</h3>
               <p className="text-sm text-muted-foreground">Ready to play</p>
-              <button className="mt-4 bg-primary text-white px-4 py-2 rounded-lg font-medium flex items-center hover:bg-opacity-90 transition-all">
+              <button 
+                onClick={handleLaunch}
+                className="mt-4 bg-primary text-white px-4 py-2 rounded-lg font-medium flex items-center hover:bg-opacity-90 transition-all"
+              >
                 Launch
                 <ArrowRight className="ml-2 w-4 h-4" />
               </button>
@@ -57,7 +66,10 @@ const Index = () => {
             <div className="flex-1">
               <h3 className="text-xl font-bold mb-2">Detroit: Become Human</h3>
               <p className="text-sm text-muted-foreground">Ready to play</p>
-              <button className="mt-4 bg-primary text-white px-4 py-2 rounded-lg font-medium flex items-center hover:bg-opacity-90 transition-all">
+              <button 
+                onClick={handleLaunch}
+                className="mt-4 bg-primary text-white px-4 py-2 rounded-lg font-medium flex items-center hover:bg-opacity-90 transition-all"
+              >
                 Launch
                 <ArrowRight className="ml-2 w-4 h-4" />
               </button>
