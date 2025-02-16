@@ -1,4 +1,3 @@
-
 import { Monitor, Cloud, Gamepad, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -8,24 +7,26 @@ const Index = () => {
   const navigate = useNavigate();
 
   const handleLaunch = () => {
-    navigate('/auth');
+    navigate('/booking');
   };
 
   return (
-    <div className="min-h-screen p-6 space-y-6">
+    <div className="min-h-screen p-6">
       {/* Hero Section */}
-      <div className="glass-card card-hover mb-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <span className="text-sm text-neutral">Cloud Gaming</span>
-            <h1 className="text-4xl font-bold mb-4">Welcome Back</h1>
-            <p className="text-muted-foreground mb-6">
-              Your cloud instance is {isConnected ? "ready" : "offline"}
-            </p>
-          </div>
-          <div className="hidden md:block">
-            <Gamepad className="w-16 h-16 text-primary animate-float" />
-          </div>
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold mb-4">
+          Welcome to Lovable Gaming Dashboard
+        </h1>
+        <p className="text-lg text-muted-foreground">
+          Start playing your favorite games in the cloud.
+        </p>
+        <div className="mt-6 flex flex-wrap gap-4">
+          <button className="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-all">
+            Get Started
+          </button>
+          <button className="bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium hover:bg-opacity-80 transition-all">
+            Learn More
+          </button>
         </div>
       </div>
 
@@ -79,60 +80,46 @@ const Index = () => {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="glass-card card-hover">
-          <Monitor className="w-8 h-8 text-primary mb-4" />
-          <h3 className="text-lg font-semibold mb-2">System Status</h3>
-          <div className="flex items-center">
-            <span className={`status-indicator ${isConnected ? "status-online" : "status-offline"}`}></span>
-            <span>{isConnected ? "Connected" : "Offline"}</span>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="glass-card p-4">
+          <div className="flex items-center space-x-2">
+            <Monitor className="text-primary w-6 h-6" />
+            <h3 className="text-lg font-bold">System Status</h3>
           </div>
+          <p className="text-sm text-muted-foreground mt-2">
+            {isConnected ? "Online" : "Offline"}
+          </p>
         </div>
 
-        <div className="glass-card card-hover">
-          <Cloud className="w-8 h-8 text-primary mb-4" />
-          <h3 className="text-lg font-semibold mb-2">Cloud Instance</h3>
-          <p className="text-sm text-muted-foreground">High Performance</p>
-          <p className="text-2xl font-bold mt-2">60 FPS</p>
+        <div className="glass-card p-4">
+          <div className="flex items-center space-x-2">
+            <Cloud className="text-primary w-6 h-6" />
+            <h3 className="text-lg font-bold">Cloud Servers</h3>
+          </div>
+          <p className="text-sm text-muted-foreground mt-2">
+            3 Servers Available
+          </p>
         </div>
 
-        <div className="glass-card card-hover">
-          <Gamepad className="w-8 h-8 text-primary mb-4" />
-          <h3 className="text-lg font-semibold mb-2">Game Ready</h3>
-          <div className="space-y-2">
-            <div className="flex justify-between text-sm">
-              <span>Graphics</span>
-              <span className="text-success">Ultra</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span>Resolution</span>
-              <span className="text-success">1440p</span>
-            </div>
+        <div className="glass-card p-4">
+          <div className="flex items-center space-x-2">
+            <Gamepad className="text-primary w-6 h-6" />
+            <h3 className="text-lg font-bold">Games Available</h3>
           </div>
+          <p className="text-sm text-muted-foreground mt-2">
+            150+ Games
+          </p>
         </div>
       </div>
 
       {/* Requirements Section */}
-      <div className="glass-card card-hover mt-6">
-        <h2 className="text-xl font-semibold mb-4">System Requirements</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <h4 className="text-sm font-medium text-neutral mb-2">Recommended</h4>
-            <ul className="space-y-2 text-sm">
-              <li>• 25 Mbps Internet Connection</li>
-              <li>• Chrome or Edge Browser</li>
-              <li>• Windows 10 or newer</li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-sm font-medium text-neutral mb-2">Your System</h4>
-            <ul className="space-y-2 text-sm">
-              <li className="text-success">• 100 Mbps Connection ✓</li>
-              <li className="text-success">• Chrome Browser ✓</li>
-              <li className="text-success">• Windows 11 ✓</li>
-            </ul>
-          </div>
-        </div>
+      <div className="glass-card p-6 mb-8">
+        <h2 className="text-2xl font-bold mb-4">System Requirements</h2>
+        <ul className="list-disc pl-5 text-muted-foreground">
+          <li>Stable internet connection</li>
+          <li>Modern web browser</li>
+          <li>Minimum 8GB RAM</li>
+        </ul>
       </div>
     </div>
   );
