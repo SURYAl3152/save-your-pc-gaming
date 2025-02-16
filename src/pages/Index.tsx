@@ -1,27 +1,89 @@
-import { Monitor, Cloud, Gamepad, ArrowRight } from "lucide-react";
+
+import { Monitor, Cloud, Gamepad, ArrowRight, Sword, Car, Robot, Crown, Crosshair, Brain } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Card } from "@/components/ui/card";
+
+const GameCard = ({ title, image, type, icon: Icon }: { title: string; image: string; type: string; icon: any }) => {
+  const navigate = useNavigate();
+  
+  return (
+    <Card className="glass-card card-hover group cursor-pointer transition-all duration-300">
+      <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 p-4">
+        <div className="relative w-32 h-32 sm:w-24 sm:h-24 rounded-lg overflow-hidden">
+          <img 
+            src={image}
+            alt={title}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute top-2 right-2 bg-black/50 p-2 rounded-full">
+            <Icon className="w-4 h-4 text-white" />
+          </div>
+        </div>
+        <div className="flex-1 text-center sm:text-left">
+          <div className="flex items-center justify-center sm:justify-start space-x-2 mb-2">
+            <h3 className="text-xl font-bold">{title}</h3>
+          </div>
+          <p className="text-sm text-muted-foreground mb-2">{type}</p>
+          <button 
+            onClick={() => navigate('/booking')}
+            className="w-full sm:w-auto bg-primary text-white px-4 py-2 rounded-lg font-medium flex items-center justify-center hover:bg-opacity-90 transition-all group-hover:translate-x-1"
+          >
+            Launch
+            <ArrowRight className="ml-2 w-4 h-4" />
+          </button>
+        </div>
+      </div>
+    </Card>
+  );
+};
 
 const Index = () => {
   const [isConnected] = useState(true);
   const navigate = useNavigate();
 
-  const handleLaunch = () => {
-    navigate('/booking');
-  };
+  const games = [
+    {
+      title: "Grand Theft Auto V",
+      image: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Grand_Theft_Auto_V_Logo.png",
+      type: "Action & Adventure",
+      icon: Car
+    },
+    {
+      title: "Detroit: Become Human",
+      image: "https://upload.wikimedia.org/wikipedia/commons/4/41/Detroit_Become_Human.png",
+      type: "Story & Adventure",
+      icon: Robot
+    },
+    {
+      title: "Elden Ring",
+      image: "https://upload.wikimedia.org/wikipedia/en/b/b9/Elden_Ring_Box_art.jpg",
+      type: "Action RPG",
+      icon: Crown
+    },
+    {
+      title: "Counter-Strike 2",
+      image: "https://upload.wikimedia.org/wikipedia/en/f/f2/Counter-Strike_2_logo.jpg",
+      type: "FPS",
+      icon: Crosshair
+    }
+  ];
 
   return (
-    <div className="min-h-screen p-6">
+    <div className="min-h-screen p-4 md:p-6 max-w-7xl mx-auto">
       {/* Hero Section */}
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-4">
+      <div className="mb-12 text-center md:text-left">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 animate-fade-in">
           Welcome to Lovable Gaming Dashboard
         </h1>
-        <p className="text-lg text-muted-foreground">
-          Start playing your favorite games in the cloud.
+        <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto md:mx-0">
+          Start playing your favorite games in the cloud with high-performance servers.
         </p>
-        <div className="mt-6 flex flex-wrap gap-4">
-          <button className="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-all">
+        <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+          <button 
+            onClick={() => navigate('/booking')}
+            className="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-all hover:translate-y-[-2px] hover:shadow-lg"
+          >
             Get Started
           </button>
           <button className="bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium hover:bg-opacity-80 transition-all">
@@ -31,94 +93,57 @@ const Index = () => {
       </div>
 
       {/* Games Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div className="glass-card card-hover group cursor-pointer">
-          <div className="flex items-center space-x-4">
-            <div className="relative w-24 h-24 rounded-lg overflow-hidden">
-              <img 
-                src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Grand_Theft_Auto_V_Logo.png"
-                alt="GTA V"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="flex-1">
-              <h3 className="text-xl font-bold mb-2">Grand Theft Auto V</h3>
-              <p className="text-sm text-muted-foreground">Ready to play</p>
-              <button 
-                onClick={handleLaunch}
-                className="mt-4 bg-primary text-white px-4 py-2 rounded-lg font-medium flex items-center hover:bg-opacity-90 transition-all"
-              >
-                Launch
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div className="glass-card card-hover group cursor-pointer">
-          <div className="flex items-center space-x-4">
-            <div className="relative w-24 h-24 rounded-lg overflow-hidden">
-              <img 
-                src="https://upload.wikimedia.org/wikipedia/commons/4/41/Detroit_Become_Human.png"
-                alt="Detroit: Become Human"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="flex-1">
-              <h3 className="text-xl font-bold mb-2">Detroit: Become Human</h3>
-              <p className="text-sm text-muted-foreground">Ready to play</p>
-              <button 
-                onClick={handleLaunch}
-                className="mt-4 bg-primary text-white px-4 py-2 rounded-lg font-medium flex items-center hover:bg-opacity-90 transition-all"
-              >
-                Launch
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+        {games.map((game, index) => (
+          <GameCard key={index} {...game} />
+        ))}
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="glass-card p-4">
-          <div className="flex items-center space-x-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div className="glass-card p-6 hover:translate-y-[-2px] transition-all">
+          <div className="flex items-center space-x-3">
             <Monitor className="text-primary w-6 h-6" />
             <h3 className="text-lg font-bold">System Status</h3>
           </div>
-          <p className="text-sm text-muted-foreground mt-2">
-            {isConnected ? "Online" : "Offline"}
+          <p className="text-sm text-muted-foreground mt-2 flex items-center">
+            <span className={`status-indicator ${isConnected ? 'status-online' : 'status-offline'}`}></span>
+            {isConnected ? "All Systems Operational" : "Maintenance"}
           </p>
         </div>
 
-        <div className="glass-card p-4">
-          <div className="flex items-center space-x-2">
+        <div className="glass-card p-6 hover:translate-y-[-2px] transition-all">
+          <div className="flex items-center space-x-3">
             <Cloud className="text-primary w-6 h-6" />
             <h3 className="text-lg font-bold">Cloud Servers</h3>
           </div>
           <p className="text-sm text-muted-foreground mt-2">
-            3 Servers Available
+            3 High-Performance Servers Available
           </p>
         </div>
 
-        <div className="glass-card p-4">
-          <div className="flex items-center space-x-2">
+        <div className="glass-card p-6 hover:translate-y-[-2px] transition-all">
+          <div className="flex items-center space-x-3">
             <Gamepad className="text-primary w-6 h-6" />
-            <h3 className="text-lg font-bold">Games Available</h3>
+            <h3 className="text-lg font-bold">Games Library</h3>
           </div>
           <p className="text-sm text-muted-foreground mt-2">
-            150+ Games
+            150+ Premium Games Available
           </p>
         </div>
       </div>
 
       {/* Requirements Section */}
-      <div className="glass-card p-6 mb-8">
-        <h2 className="text-2xl font-bold mb-4">System Requirements</h2>
-        <ul className="list-disc pl-5 text-muted-foreground">
-          <li>Stable internet connection</li>
-          <li>Modern web browser</li>
-          <li>Minimum 8GB RAM</li>
+      <div className="glass-card p-6 hover:translate-y-[-2px] transition-all">
+        <h2 className="text-2xl font-bold mb-4 flex items-center">
+          <Brain className="w-6 h-6 mr-2 text-primary" />
+          System Requirements
+        </h2>
+        <ul className="list-disc pl-5 text-muted-foreground space-y-2">
+          <li>Stable internet connection (15+ Mbps recommended)</li>
+          <li>Modern web browser (Chrome, Firefox, or Edge)</li>
+          <li>Minimum 8GB RAM for optimal performance</li>
+          <li>Any modern operating system (Windows 10+, macOS, Linux)</li>
         </ul>
       </div>
     </div>
