@@ -45,13 +45,13 @@ const Index = () => {
   const games = [
     {
       title: "Grand Theft Auto V",
-      image: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Grand_Theft_Auto_V_Logo.png",
+      image: "/lovable-uploads/d9ff41d0-6dc9-42f0-8663-271613f819f0.png",
       type: "Action & Adventure",
       icon: Car
     },
     {
       title: "Detroit: Become Human",
-      image: "https://upload.wikimedia.org/wikipedia/commons/4/41/Detroit_Become_Human.png",
+      image: "/lovable-uploads/c65192d1-9870-4e4d-ade4-a19cf3690839.png",
       type: "Story & Adventure",
       icon: Bot
     },
@@ -63,7 +63,7 @@ const Index = () => {
     },
     {
       title: "Counter-Strike 2",
-      image: "https://upload.wikimedia.org/wikipedia/en/f/f2/Counter-Strike_2_logo.jpg",
+      image: "/lovable-uploads/00da22e8-4316-4167-9524-a3700b9a0e09.png",
       type: "FPS",
       icon: Crosshair
     }
