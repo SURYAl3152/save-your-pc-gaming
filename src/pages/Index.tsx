@@ -1,5 +1,5 @@
 
-import { Monitor, Cloud, Gamepad, ArrowRight, Sword, Car, Robot, Crown, Crosshair, Brain } from "lucide-react";
+import { Monitor, Cloud, Gamepad, ArrowRight, Sword, Car, Bot, Crown, Crosshair, Brain } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
@@ -53,7 +53,7 @@ const Index = () => {
       title: "Detroit: Become Human",
       image: "https://upload.wikimedia.org/wikipedia/commons/4/41/Detroit_Become_Human.png",
       type: "Story & Adventure",
-      icon: Robot
+      icon: Bot
     },
     {
       title: "Elden Ring",
