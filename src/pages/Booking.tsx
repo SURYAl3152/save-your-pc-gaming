@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Clock } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
@@ -88,23 +88,38 @@ const Booking = () => {
           </div>
 
           {date && (
-            <div className="space-y-2">
-              <Label>Available Time Slots for {format(date, 'PP')}</Label>
-              <div className="grid grid-cols-2 gap-2">
-                {timeSlots.map((slot) => (
-                  <button
-                    key={slot}
-                    type="button"
-                    onClick={() => setSelectedTimeSlot(slot)}
-                    className={`p-2 rounded-lg border ${
-                      selectedTimeSlot === slot
-                        ? 'bg-primary text-white'
-                        : 'hover:bg-secondary'
-                    }`}
-                  >
-                    {slot}
-                  </button>
-                ))}
+            <div className="space-y-3">
+              <Label className="flex items-center gap-2">
+                <Clock className="w-4 h-4" />
+                Available Time Slots for {format(date, 'PP')}
+              </Label>
+              <div className="grid grid-cols-2 gap-3">
+                {timeSlots.map((slot) => {
+                  const isSelected = selectedTimeSlot === slot;
+                  return (
+                    <button
+                      key={slot}
+                      type="button"
+                      onClick={() => setSelectedTimeSlot(slot)}
+                      className={`
+                        relative p-3 rounded-lg border transition-all duration-200
+                        ${isSelected 
+                          ? 'bg-primary border-primary text-white scale-105 shadow-lg' 
+                          : 'hover:bg-[#E5DEFF] hover:border-[#9b87f5] hover:text-[#7E69AB]'
+                        }
+                        group overflow-hidden
+                      `}
+                    >
+                      <div className="relative z-10 flex items-center justify-center">
+                        <Clock className={`w-4 h-4 mr-2 ${isSelected ? 'text-white' : 'text-[#9b87f5]'}`} />
+                        <span className="font-medium">{slot}</span>
+                      </div>
+                      {isSelected && (
+                        <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary to-[#9b87f5] opacity-50 animate-pulse" />
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
