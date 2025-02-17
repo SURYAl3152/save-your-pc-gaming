@@ -73,9 +73,12 @@ const Index = () => {
     <div className="min-h-screen p-4 md:p-6 max-w-7xl mx-auto">
       {/* Hero Section */}
       <div className="mb-12 text-center md:text-left">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 animate-fade-in">
-          Welcome to Lovable Gaming Dashboard
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 animate-fade-in">
+          Welcome to Save-Your-PC-Gaming
         </h1>
+        <p className="text-lg text-muted-foreground mb-1">
+          SYP Gaming
+        </p>
         <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto md:mx-0">
           Start playing your favorite games in the cloud with high-performance servers.
         </p>
