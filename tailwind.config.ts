@@ -28,17 +28,13 @@ export default {
         success: "#34C759",
         danger: "#FF3B30",
         neutral: "#8E8E93",
-        card: {
-          DEFAULT: "rgba(28, 28, 30, 0.6)",
-          foreground: "#FFFFFF",
-        },
         primary: {
-          DEFAULT: "#FF3B30",
-          foreground: "#FFFFFF",
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "#34C759",
-          foreground: "#FFFFFF",
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -49,12 +45,16 @@ export default {
           foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
-          DEFAULT: "rgba(255, 255, 255, 0.1)",
-          foreground: "#FFFFFF",
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
         },
         popover: {
-          DEFAULT: "rgb(28, 28, 30)",
-          foreground: "#FFFFFF",
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
       },
       borderRadius: {
