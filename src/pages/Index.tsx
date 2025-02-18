@@ -1,48 +1,11 @@
-import { Monitor, Cloud, Gamepad, ArrowRight, Sword, Car, Bot, Crown, Crosshair, Brain, Cpu, Tv2, Keyboard } from "lucide-react";
+
+import { Car, Bot, Crown, Crosshair } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-
-const GameCard = ({ title, image, type, icon: Icon }: { title: string; image: string; type: string; icon: any }) => {
-  const navigate = useNavigate();
-  
-  return (
-    <Card className="glass-card card-hover group cursor-pointer transition-all duration-300">
-      <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 p-4">
-        <div className="relative w-32 h-32 sm:w-24 sm:h-24 rounded-lg overflow-hidden">
-          <img 
-            src={image}
-            alt={title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute top-2 right-2 bg-black/50 p-2 rounded-full">
-            <Icon className="w-4 h-4 text-white" />
-          </div>
-        </div>
-        <div className="flex-1 text-center sm:text-left">
-          <div className="flex items-center justify-center sm:justify-start space-x-2 mb-2">
-            <h3 className="text-xl font-bold">{title}</h3>
-          </div>
-          <p className="text-sm text-muted-foreground mb-2">{type}</p>
-          <button 
-            onClick={() => navigate('/booking')}
-            className="w-full sm:w-auto bg-primary text-white px-4 py-2 rounded-lg font-medium flex items-center justify-center hover:bg-opacity-90 transition-all group-hover:translate-x-1"
-          >
-            Launch
-            <ArrowRight className="ml-2 w-4 h-4" />
-          </button>
-        </div>
-      </div>
-    </Card>
-  );
-};
+import { GameCard } from "@/components/GameCard";
+import { LearnMoreDialog } from "@/components/LearnMoreDialog";
+import { StatsGrid } from "@/components/StatsGrid";
+import { SystemRequirements } from "@/components/SystemRequirements";
 
 const Index = () => {
   const [isConnected] = useState(true);
@@ -95,74 +58,7 @@ const Index = () => {
           >
             Get Started
           </button>
-          <Dialog>
-            <DialogTrigger asChild>
-              <button className="bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium hover:bg-opacity-80 transition-all">
-                Learn More
-              </button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-2xl">
-              <DialogHeader>
-                <DialogTitle className="text-2xl font-bold mb-4">Play High-End Games on Low-Spec PCs</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="glass-card p-4">
-                    <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
-                      <Cpu className="w-5 h-5 text-primary" />
-                      High-Performance Cloud Gaming
-                    </h3>
-                    <p className="text-muted-foreground">
-                      Access powerful RTX 4080 GPUs and latest gen processors through our cloud servers, without needing expensive hardware.
-                    </p>
-                  </div>
-                  <div className="glass-card p-4">
-                    <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
-                      <Monitor className="w-5 h-5 text-primary" />
-                      Minimal Requirements
-                    </h3>
-                    <p className="text-muted-foreground">
-                      All you need is a basic monitor and keyboard to play the latest AAA games. No expensive gaming PC required!
-                    </p>
-                  </div>
-                </div>
-
-                <div className="glass-card p-4">
-                  <h3 className="text-xl font-bold mb-4">What You Need vs What We Provide</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <h4 className="font-medium mb-2 flex items-center gap-2">
-                        <Keyboard className="w-4 h-4 text-primary" />
-                        What You Need:
-                      </h4>
-                      <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
-                        <li>Basic monitor</li>
-                        <li>Keyboard and mouse</li>
-                        <li>Internet connection</li>
-                        <li>Any basic PC/laptop</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-medium mb-2 flex items-center gap-2">
-                        <Cloud className="w-4 h-4 text-primary" />
-                        What We Provide:
-                      </h4>
-                      <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
-                        <li>RTX 4080 GPU</li>
-                        <li>32GB RAM</li>
-                        <li>High-speed SSD storage</li>
-                        <li>Latest gen processors</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="text-sm text-muted-foreground">
-                  Experience the latest games without investing in expensive hardware. Our cloud gaming solution brings high-end gaming to everyone, regardless of their PC specifications.
-                </div>
-              </div>
-            </DialogContent>
-          </Dialog>
+          <LearnMoreDialog />
         </div>
       </div>
 
@@ -173,53 +69,8 @@ const Index = () => {
         ))}
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        <div className="glass-card p-6 hover:translate-y-[-2px] transition-all">
-          <div className="flex items-center space-x-3">
-            <Monitor className="text-primary w-6 h-6" />
-            <h3 className="text-lg font-bold">System Status</h3>
-          </div>
-          <p className="text-sm text-muted-foreground mt-2 flex items-center">
-            <span className={`status-indicator ${isConnected ? 'status-online' : 'status-offline'}`}></span>
-            {isConnected ? "All Systems Operational" : "Maintenance"}
-          </p>
-        </div>
-
-        <div className="glass-card p-6 hover:translate-y-[-2px] transition-all">
-          <div className="flex items-center space-x-3">
-            <Cloud className="text-primary w-6 h-6" />
-            <h3 className="text-lg font-bold">Cloud Servers</h3>
-          </div>
-          <p className="text-sm text-muted-foreground mt-2">
-            3 High-Performance Servers Available
-          </p>
-        </div>
-
-        <div className="glass-card p-6 hover:translate-y-[-2px] transition-all">
-          <div className="flex items-center space-x-3">
-            <Gamepad className="text-primary w-6 h-6" />
-            <h3 className="text-lg font-bold">Games Library</h3>
-          </div>
-          <p className="text-sm text-muted-foreground mt-2">
-            150+ Premium Games Available
-          </p>
-        </div>
-      </div>
-
-      {/* Requirements Section */}
-      <div className="glass-card p-6 hover:translate-y-[-2px] transition-all">
-        <h2 className="text-2xl font-bold mb-4 flex items-center">
-          <Brain className="w-6 h-6 mr-2 text-primary" />
-          System Requirements
-        </h2>
-        <ul className="list-disc pl-5 text-muted-foreground space-y-2">
-          <li>Stable internet connection (15+ Mbps recommended)</li>
-          <li>Modern web browser (Chrome, Firefox, or Edge)</li>
-          <li>Minimum 8GB RAM for optimal performance</li>
-          <li>Any modern operating system (Windows 10+, macOS, Linux)</li>
-        </ul>
-      </div>
+      <StatsGrid isConnected={isConnected} />
+      <SystemRequirements />
     </div>
   );
 };
