@@ -1,15 +1,18 @@
 
-import { Car, Bot, Crown, Crosshair } from "lucide-react";
+import { Car, Bot, Crown, Crosshair, Sun, Moon } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GameCard } from "@/components/GameCard";
 import { LearnMoreDialog } from "@/components/LearnMoreDialog";
 import { StatsGrid } from "@/components/StatsGrid";
 import { SystemRequirements } from "@/components/SystemRequirements";
+import { useTheme } from "@/hooks/use-theme";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   const [isConnected] = useState(true);
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
 
   const games = [
     {
@@ -40,6 +43,23 @@ const Index = () => {
 
   return (
     <div className="min-h-screen p-4 md:p-6 max-w-7xl mx-auto">
+      {/* Theme Toggle Button */}
+      <div className="fixed top-4 right-4 z-50">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={toggleTheme}
+          className="rounded-full"
+        >
+          {theme === 'dark' ? (
+            <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
+          ) : (
+            <Moon className="h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          )}
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+      </div>
+
       {/* Hero Section */}
       <div className="mb-12 text-center md:text-left">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 animate-fade-in">
