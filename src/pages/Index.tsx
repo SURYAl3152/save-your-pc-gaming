@@ -1,11 +1,17 @@
 
-import { Car, Bot, Crown, Crosshair } from "lucide-react";
+import { Car, Bot, Crown, Crosshair, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GameCard } from "@/components/GameCard";
 import { LearnMoreDialog } from "@/components/LearnMoreDialog";
 import { StatsGrid } from "@/components/StatsGrid";
 import { SystemRequirements } from "@/components/SystemRequirements";
+import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
 const Index = () => {
   const [isConnected] = useState(true);
@@ -52,12 +58,39 @@ const Index = () => {
           Start playing your favorite games in the cloud with high-performance servers.
         </p>
         <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-          <button 
-            onClick={() => navigate('/booking')}
-            className="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-all hover:translate-y-[-2px] hover:shadow-lg"
-          >
-            Get Started
-          </button>
+          <Popover>
+            <PopoverTrigger asChild>
+              <button 
+                className="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-all hover:translate-y-[-2px] hover:shadow-lg"
+              >
+                Get Started
+              </button>
+            </PopoverTrigger>
+            <PopoverContent className="w-80">
+              <div className="space-y-4">
+                <h3 className="font-semibold mb-2">Quick Launch Games</h3>
+                {games.map((game, index) => (
+                  <div 
+                    key={index}
+                    className="flex items-center justify-between p-2 hover:bg-accent rounded-lg transition-colors"
+                  >
+                    <div className="flex items-center gap-2">
+                      <game.icon className="w-4 h-4 text-primary" />
+                      <span>{game.title}</span>
+                    </div>
+                    <Button
+                      size="sm"
+                      onClick={() => navigate('/booking')}
+                      className="flex items-center gap-1"
+                    >
+                      Launch
+                      <ArrowRight className="w-3 h-3" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </PopoverContent>
+          </Popover>
           <LearnMoreDialog />
         </div>
       </div>
