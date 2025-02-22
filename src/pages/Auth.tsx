@@ -2,18 +2,56 @@
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically handle authentication
-    // For now, we'll just show a console message
-    console.log("Authentication submitted");
+    setIsLoading(true);
+
+    try {
+      if (isLogin) {
+        // Handle Sign In
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+        if (error) throw error;
+        
+        toast.success("Successfully signed in!");
+        navigate('/');
+      } else {
+        // Handle Sign Up
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              username: username,
+            },
+          },
+        });
+        if (error) throw error;
+        
+        toast.success("Successfully signed up! Please verify your email.");
+        navigate('/');
+      }
+    } catch (error: any) {
+      toast.error(error.message || "An error occurred during authentication");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -46,7 +84,10 @@ const Auth = () => {
               id="email"
               type="email"
               placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={isLoading}
             />
           </div>
 
@@ -57,7 +98,10 @@ const Auth = () => {
                 id="username"
                 type="text"
                 placeholder="Choose a username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
+                disabled={isLoading}
               />
             </div>
           )}
@@ -68,16 +112,27 @@ const Auth = () => {
               id="password"
               type="password"
               placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
+              disabled={isLoading}
             />
           </div>
 
-          <button
+          <Button
             type="submit"
-            className="w-full bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-opacity-90 transition-all"
+            className="w-full"
+            disabled={isLoading}
           >
-            {isLogin ? "Sign In" : "Create Account"}
-          </button>
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                {isLogin ? "Signing in..." : "Creating account..."}
+              </>
+            ) : (
+              isLogin ? "Sign In" : "Create Account"
+            )}
+          </Button>
         </form>
       </div>
     </div>
