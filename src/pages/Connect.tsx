@@ -5,15 +5,19 @@ import { ArrowLeft, Loader2 } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@supabase/supabase-js';
 import { Button } from "@/components/ui/button";
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
 
 const Connect = () => {
   const [isConnecting, setIsConnecting] = useState(false);
   const [ip, setIp] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const supabase = createClientComponentClient();
 
   const handleConnect = async (e: React.FormEvent) => {
     e.preventDefault();
