@@ -1,6 +1,6 @@
 
-import { Car, Bot, Crown, Crosshair, Sun, Moon } from "lucide-react";
-import { useState } from "react";
+import { Car, Bot, Crown, Crosshair, Sun, Moon, LogIn, LogOut, User } from "lucide-react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { GameCard } from "@/components/GameCard";
 import { LearnMoreDialog } from "@/components/LearnMoreDialog";
@@ -8,17 +8,46 @@ import { StatsGrid } from "@/components/StatsGrid";
 import { SystemRequirements } from "@/components/SystemRequirements";
 import { useTheme } from "@/hooks/use-theme";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Index = () => {
   const [isConnected] = useState(true);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
+
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    // Listen for auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate('/auth');
+  };
 
   const games = [
     {
@@ -49,8 +78,8 @@ const Index = () => {
 
   return (
     <div className="min-h-screen p-4 md:p-6 max-w-7xl mx-auto">
-      {/* Theme Toggle Button */}
-      <div className="fixed top-4 right-4 z-50">
+      {/* Header with Theme and Auth Controls */}
+      <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -73,6 +102,38 @@ const Index = () => {
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
+
+        {user ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-110 transition-all duration-200 shadow-md hover:shadow-lg"
+              >
+                <User className="h-[1.2rem] w-[1.2rem]" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem 
+                className="cursor-pointer"
+                onClick={handleLogout}
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                <span>Log out</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => navigate('/auth')}
+            className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-110 transition-all duration-200 shadow-md hover:shadow-lg"
+          >
+            <LogIn className="h-[1.2rem] w-[1.2rem]" />
+          </Button>
+        )}
       </div>
 
       {/* Hero Section */}
