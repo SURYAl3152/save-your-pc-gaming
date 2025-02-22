@@ -8,6 +8,12 @@ import { StatsGrid } from "@/components/StatsGrid";
 import { SystemRequirements } from "@/components/SystemRequirements";
 import { useTheme } from "@/hooks/use-theme";
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const Index = () => {
   const [isConnected] = useState(true);
@@ -45,19 +51,28 @@ const Index = () => {
     <div className="min-h-screen p-4 md:p-6 max-w-7xl mx-auto">
       {/* Theme Toggle Button */}
       <div className="fixed top-4 right-4 z-50">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={toggleTheme}
-          className="rounded-full bg-background text-foreground border-2 hover:bg-background/90"
-        >
-          {theme === 'dark' ? (
-            <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
-          ) : (
-            <Moon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
-          )}
-          <span className="sr-only">Toggle theme</span>
-        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={toggleTheme}
+                className="rounded-full bg-background text-foreground border-2 hover:bg-background/90 transform hover:scale-110 transition-all duration-200 shadow-md hover:shadow-lg"
+              >
+                {theme === 'dark' ? (
+                  <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all animate-in" />
+                ) : (
+                  <Moon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all animate-in" />
+                )}
+                <span className="sr-only">Toggle theme</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Switch to {theme === 'dark' ? 'light' : 'dark'} mode</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
 
       {/* Hero Section */}
