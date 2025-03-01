@@ -56,6 +56,13 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        gaming: {
+          "purple": "#7b68ee",
+          "neon": "#a855f7",
+          "dark": "#0f0a1e",
+          "pink": "#ff00ff",
+          "blue": "#00a3ff",
+        }
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -79,12 +86,30 @@ export default {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.5" },
         },
+        gaming: {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
+        },
+        glow: {
+          "0%, 100%": { 
+            boxShadow: "0 0 5px rgba(168, 85, 247, 0.7), 0 0 10px rgba(168, 85, 247, 0.5)" 
+          },
+          "50%": { 
+            boxShadow: "0 0 20px rgba(168, 85, 247, 0.9), 0 0 30px rgba(168, 85, 247, 0.7)" 
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         float: "float 3s ease-in-out infinite",
         pulse: "pulse 2s ease-in-out infinite",
+        gaming: "gaming 15s ease infinite",
+        glow: "glow 2s ease-in-out infinite",
+      },
+      backgroundImage: {
+        "gradient-gaming": "linear-gradient(90deg, hsla(277, 75%, 84%, 1) 0%, hsla(297, 50%, 51%, 1) 100%)",
       },
     },
   },
