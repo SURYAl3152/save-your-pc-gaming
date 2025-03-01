@@ -1,5 +1,5 @@
 
-import { Car, Bot, Crown, Crosshair, Sun, Moon, LogIn, LogOut, User, Gamepad2 } from "lucide-react";
+import { Car, Bot, Crown, Crosshair, Sun, Moon, LogIn, LogOut, User } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { GameCard } from "@/components/GameCard";
@@ -77,10 +77,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen p-4 md:p-6 max-w-7xl mx-auto relative gaming-background">
-      {/* Gaming animated background overlay */}
-      <div className="gaming-overlay"></div>
-      
+    <div className="min-h-screen p-4 md:p-6 max-w-7xl mx-auto">
       {/* Header with Theme and Auth Controls */}
       <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
         <TooltipProvider>
@@ -112,14 +109,14 @@ const Index = () => {
               <Button
                 variant="outline"
                 size="icon"
-                className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-110 transition-all duration-200 shadow-md hover:shadow-lg border-2 border-purple-500"
+                className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-110 transition-all duration-200 shadow-md hover:shadow-lg"
               >
                 <User className="h-[1.2rem] w-[1.2rem]" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-gray-900 border border-purple-500">
+            <DropdownMenuContent align="end">
               <DropdownMenuItem 
-                className="cursor-pointer text-white hover:bg-purple-800"
+                className="cursor-pointer"
                 onClick={handleLogout}
               >
                 <LogOut className="mr-2 h-4 w-4" />
@@ -132,7 +129,7 @@ const Index = () => {
             variant="outline"
             size="icon"
             onClick={() => navigate('/auth')}
-            className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-110 transition-all duration-200 shadow-md hover:shadow-lg border-2 border-purple-500"
+            className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-110 transition-all duration-200 shadow-md hover:shadow-lg"
           >
             <LogIn className="h-[1.2rem] w-[1.2rem]" />
           </Button>
@@ -140,32 +137,29 @@ const Index = () => {
       </div>
 
       {/* Hero Section */}
-      <div className="mb-12 text-center md:text-left relative z-10">
-        <div className="flex items-center justify-center md:justify-start gap-2 mb-4">
-          <Gamepad2 className="h-8 w-8 text-purple-500 animate-pulse" />
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-            Save-Your-PC-Gaming
-          </h1>
-        </div>
-        <p className="text-lg text-purple-300 mb-1 font-semibold">
-          SYP Gaming - Cloud Gaming Revolution
+      <div className="mb-12 text-center md:text-left">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 animate-fade-in">
+          Welcome to Save-Your-PC-Gaming
+        </h1>
+        <p className="text-lg text-muted-foreground mb-1">
+          SYP Gaming
         </p>
-        <p className="text-lg text-gray-300 mb-6 max-w-2xl mx-auto md:mx-0">
-          Start playing AAA titles on your low-spec PC with our high-performance cloud servers.
+        <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto md:mx-0">
+          Start playing your favorite games in the cloud with high-performance servers.
         </p>
         <div className="flex flex-wrap gap-4 justify-center md:justify-start">
           <button 
             onClick={() => navigate('/booking')}
-            className="bg-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-purple-700 transition-all hover:translate-y-[-2px] hover:shadow-lg border border-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.5)]"
+            className="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-all hover:translate-y-[-2px] hover:shadow-lg"
           >
-            Start Gaming Now
+            Get Started
           </button>
           <LearnMoreDialog />
         </div>
       </div>
 
       {/* Games Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12 relative z-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
         {games.map((game, index) => (
           <GameCard key={index} {...game} />
         ))}
