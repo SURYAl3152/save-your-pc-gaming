@@ -1,7 +1,8 @@
 
-import { ArrowRight, Star, Users, Clock } from "lucide-react";
+import { ArrowRight, Star, Users, Clock, Gamepad, Trophy } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 interface GameCardProps {
   title: string;
@@ -17,6 +18,9 @@ export const GameCard = ({ title, image, type, icon: Icon }: GameCardProps) => {
   const rating = 4.5;
   const players = "2M+";
   const releaseYear = "2022";
+  const difficulty = "Medium";
+  const playTime = "40+ hrs";
+  const tags = ["Open World", "Multiplayer", "Action"];
   
   return (
     <Card className="glass-card card-hover group cursor-pointer transition-all duration-300">
@@ -34,6 +38,11 @@ export const GameCard = ({ title, image, type, icon: Icon }: GameCardProps) => {
         <div className="flex-1 text-center sm:text-left">
           <div className="flex items-center justify-center sm:justify-start space-x-2 mb-2">
             <h3 className="text-xl font-bold">{title}</h3>
+            {rating >= 4.5 && (
+              <Badge variant="secondary" className="bg-amber-600/20 text-amber-500 border-amber-500/50">
+                Top Rated
+              </Badge>
+            )}
           </div>
           <p className="text-sm text-muted-foreground mb-3">{type}</p>
           
@@ -51,6 +60,27 @@ export const GameCard = ({ title, image, type, icon: Icon }: GameCardProps) => {
               <Clock className="w-4 h-4 text-muted-foreground mr-1" />
               <span className="text-sm">{releaseYear}</span>
             </div>
+          </div>
+          
+          {/* Extended game details */}
+          <div className="grid grid-cols-2 gap-2 mb-3">
+            <div className="flex items-center justify-center sm:justify-start">
+              <Trophy className="w-4 h-4 text-orange-400 mr-1" />
+              <span className="text-sm">Difficulty: {difficulty}</span>
+            </div>
+            <div className="flex items-center justify-center sm:justify-start">
+              <Gamepad className="w-4 h-4 text-green-500 mr-1" />
+              <span className="text-sm">{playTime}</span>
+            </div>
+          </div>
+          
+          {/* Game tags */}
+          <div className="flex flex-wrap justify-center sm:justify-start gap-1 mb-3">
+            {tags.map((tag, i) => (
+              <Badge key={i} variant="outline" className="text-xs">
+                {tag}
+              </Badge>
+            ))}
           </div>
           
           <button 
