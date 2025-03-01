@@ -1,5 +1,5 @@
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Star, Users, Clock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 
@@ -12,6 +12,11 @@ interface GameCardProps {
 
 export const GameCard = ({ title, image, type, icon: Icon }: GameCardProps) => {
   const navigate = useNavigate();
+  
+  // Sample data for demonstration - in a real app this would come from props
+  const rating = 4.5;
+  const players = "2M+";
+  const releaseYear = "2022";
   
   return (
     <Card className="glass-card card-hover group cursor-pointer transition-all duration-300">
@@ -30,7 +35,24 @@ export const GameCard = ({ title, image, type, icon: Icon }: GameCardProps) => {
           <div className="flex items-center justify-center sm:justify-start space-x-2 mb-2">
             <h3 className="text-xl font-bold">{title}</h3>
           </div>
-          <p className="text-sm text-muted-foreground mb-2">{type}</p>
+          <p className="text-sm text-muted-foreground mb-3">{type}</p>
+          
+          {/* Additional game details */}
+          <div className="grid grid-cols-3 gap-2 mb-3">
+            <div className="flex items-center justify-center sm:justify-start">
+              <Star className="w-4 h-4 text-yellow-500 mr-1" />
+              <span className="text-sm">{rating}/5</span>
+            </div>
+            <div className="flex items-center justify-center sm:justify-start">
+              <Users className="w-4 h-4 text-primary mr-1" />
+              <span className="text-sm">{players}</span>
+            </div>
+            <div className="flex items-center justify-center sm:justify-start">
+              <Clock className="w-4 h-4 text-muted-foreground mr-1" />
+              <span className="text-sm">{releaseYear}</span>
+            </div>
+          </div>
+          
           <button 
             onClick={() => navigate('/booking')}
             className="w-full sm:w-auto bg-primary text-white px-4 py-2 rounded-lg font-medium flex items-center justify-center hover:bg-opacity-90 transition-all group-hover:translate-x-1"
