@@ -101,145 +101,143 @@ const Booking = () => {
         Back to Games
       </button>
 
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-2xl font-bold mb-6">Select Your Game</h1>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {games.map((game) => (
-            <Card 
-              key={game.id}
-              className={`glass-card p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02] ${
-                selectedGame === game.id ? 'ring-2 ring-primary' : ''
-              }`}
-              onClick={() => setSelectedGame(game.id)}
-            >
-              <div className="flex gap-4">
-                <img 
-                  src={game.image} 
-                  alt={game.title}
-                  className="w-32 h-32 object-cover rounded-lg"
-                />
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold mb-2">{game.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-4">{game.description}</p>
-                  <div className="grid grid-cols-2 gap-2 text-sm">
-                    <div className="flex items-center gap-1">
-                      <Cpu className="w-4 h-4 text-primary" />
-                      <span className="text-muted-foreground">{game.requirements.cpu}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Monitor className="w-4 h-4 text-primary" />
-                      <span className="text-muted-foreground">{game.requirements.gpu}</span>
-                    </div>
+      <h1 className="text-2xl font-bold mb-6">Select Your Game</h1>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        {games.map((game) => (
+          <Card 
+            key={game.id}
+            className={`glass-card p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02] ${
+              selectedGame === game.id ? 'ring-2 ring-primary' : ''
+            }`}
+            onClick={() => setSelectedGame(game.id)}
+          >
+            <div className="flex gap-4">
+              <img 
+                src={game.image} 
+                alt={game.title}
+                className="w-32 h-32 object-cover rounded-lg"
+              />
+              <div className="flex-1">
+                <h3 className="text-xl font-bold mb-2">{game.title}</h3>
+                <p className="text-sm text-muted-foreground mb-4">{game.description}</p>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div className="flex items-center gap-1">
+                    <Cpu className="w-4 h-4 text-primary" />
+                    <span className="text-muted-foreground">{game.requirements.cpu}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Monitor className="w-4 h-4 text-primary" />
+                    <span className="text-muted-foreground">{game.requirements.gpu}</span>
                   </div>
                 </div>
               </div>
-            </Card>
-          ))}
-        </div>
-
-        {selectedGame && (
-          <div className="max-w-md mx-auto glass-card">
-            <h2 className="text-xl font-bold mb-6">Book Gaming Session</h2>
-            <form onSubmit={handleBooking} className="space-y-6">
-              <div>
-                <Label htmlFor="hours">Hours</Label>
-                <Slider
-                  id="hours"
-                  defaultValue={hours}
-                  max={maxHours}
-                  step={1}
-                  onValueChange={(value) => setHours(value)}
-                />
-                <p className="text-sm text-muted-foreground">
-                  {hours[0]} hour(s) selected
-                </p>
-              </div>
-
-              <div>
-                <Label>Date</Label>
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  className="rounded-md border"
-                />
-                {date ? (
-                  <p className="text-sm text-muted-foreground">
-                    {format(date, "PP")}
-                  </p>
-                ) : (
-                  <p className="text-sm text-muted-foreground">
-                    Please select a date.
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <Label htmlFor="time">Select a Time Slot</Label>
-                <div className="grid grid-cols-3 gap-2">
-                  {timeSlots.map((slot) => (
-                    <button
-                      key={slot}
-                      type="button"
-                      className={`rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=on]:bg-accent data-[state=on]:text-accent-foreground ${selectedTimeSlot === slot ? 'bg-secondary text-secondary-foreground' : 'bg-muted text-muted-foreground'
-                        }`}
-                      onClick={() => setSelectedTimeSlot(slot)}
-                    >
-                      {slot}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <Label htmlFor="phone">Phone Number</Label>
-                <Input
-                  type="tel"
-                  id="phone"
-                  placeholder="Enter your phone number"
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                />
-              </div>
-
-              <div className="border-t pt-4">
-                <div className="flex justify-between mb-4">
-                  <span>Price per hour:</span>
-                  <span>₹{pricePerHour}</span>
-                </div>
-                <div className="flex justify-between font-bold">
-                  <span>Total Price:</span>
-                  <span>₹{totalPrice}</span>
-                </div>
-              </div>
-
-              {!showPayment ? (
-                <button
-                  type="submit"
-                  className="w-full bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-opacity-90 transition-all"
-                >
-                  Proceed to Payment
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={handlePayment}
-                  className="w-full bg-green-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-opacity-90 transition-all"
-                >
-                  Pay ₹{totalPrice}
-                </button>
-              )}
-
-              {selectedTimeSlot && date && (
-                <p className="text-sm text-muted-foreground text-center">
-                  Selected slot: {format(date, 'PP')} at {selectedTimeSlot}
-                </p>
-              )}
-            </form>
-          </div>
-        )}
+            </div>
+          </Card>
+        ))}
       </div>
+
+      {selectedGame && (
+        <div className="max-w-md mx-auto glass-card">
+          <h2 className="text-xl font-bold mb-6">Book Gaming Session</h2>
+          <form onSubmit={handleBooking} className="space-y-6">
+            <div>
+              <Label htmlFor="hours">Hours</Label>
+              <Slider
+                id="hours"
+                defaultValue={hours}
+                max={maxHours}
+                step={1}
+                onValueChange={(value) => setHours(value)}
+              />
+              <p className="text-sm text-muted-foreground">
+                {hours[0]} hour(s) selected
+              </p>
+            </div>
+
+            <div>
+              <Label>Date</Label>
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                className="rounded-md border"
+              />
+              {date ? (
+                <p className="text-sm text-muted-foreground">
+                  {format(date, "PP")}
+                </p>
+              ) : (
+                <p className="text-sm text-muted-foreground">
+                  Please select a date.
+                </p>
+              )}
+            </div>
+
+            <div>
+              <Label htmlFor="time">Select a Time Slot</Label>
+              <div className="grid grid-cols-3 gap-2">
+                {timeSlots.map((slot) => (
+                  <button
+                    key={slot}
+                    type="button"
+                    className={`rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=on]:bg-accent data-[state=on]:text-accent-foreground ${selectedTimeSlot === slot ? 'bg-secondary text-secondary-foreground' : 'bg-muted text-muted-foreground'
+                      }`}
+                    onClick={() => setSelectedTimeSlot(slot)}
+                  >
+                    {slot}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="phone">Phone Number</Label>
+              <Input
+                type="tel"
+                id="phone"
+                placeholder="Enter your phone number"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+              />
+            </div>
+
+            <div className="border-t pt-4">
+              <div className="flex justify-between mb-4">
+                <span>Price per hour:</span>
+                <span>₹{pricePerHour}</span>
+              </div>
+              <div className="flex justify-between font-bold">
+                <span>Total Price:</span>
+                <span>₹{totalPrice}</span>
+              </div>
+            </div>
+
+            {!showPayment ? (
+              <button
+                type="submit"
+                className="w-full bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-opacity-90 transition-all"
+              >
+                Proceed to Payment
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={handlePayment}
+                className="w-full bg-green-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-opacity-90 transition-all"
+              >
+                Pay ₹{totalPrice}
+              </button>
+            )}
+
+            {selectedTimeSlot && date && (
+              <p className="text-sm text-muted-foreground text-center">
+                Selected slot: {format(date, 'PP')} at {selectedTimeSlot}
+              </p>
+            )}
+          </form>
+        </div>
+      )}
     </div>
   );
 };
